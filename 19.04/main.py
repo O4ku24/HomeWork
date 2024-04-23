@@ -1,24 +1,40 @@
 
 def Task(n):
 
-    if 1 <= n <= 8:
-        result = []
+    a = 0
+    variants =[]
 
-        var_1 = '(' * n + ')' * n
-        result.append(var_1)
+    if n > 0:
+        variant = ['(', 1, 1]
+        
+        variants.append(variant)
+        
+        while a == 0:
+            a = 1
 
-        var_2 = '()' * n
-        result.append(var_2)
+            #print(f'\n{variants}\n')
 
-        if n - 1 != 0:
-            var_3 = '(' * (n-1) + ')' 
-
-
-
-
-
-        print(result)
+            for v in variants:
+                if v[1] < n and v[2] > 0:
+                    a = 0
+                    variants.append([v[0] + ')', v[1], v[2] - 1])
+                    v[0] += '('
+                    v[1] += 1
+                    v[2] += 1
+                elif v[1] == n and v[2] > 0:
+                    a = 0
+                    v[0] += ')'
+                    v[2] -= 1
+                elif v[1] < n and v[2] == 0:
+                    a = 0
+                    v[0] += '('
+                    v[1] += 1
+                    v[2] += 1
     else:
-        print('Чило должно быть в диапозоне от 1 до 8 включительно!!!')
+        return []
+    for i in variants:
+        #print(i[0])
+        variants[variants.index(i)] = i[0]
+    return variants
 
-Task(3)
+print(Task(3))
